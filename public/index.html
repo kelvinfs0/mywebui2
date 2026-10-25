@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>L1zii</title>
+<meta name="description" content="L1zii 的个人站">
+<meta name="theme-color" content="#000000">
+<meta property="og:type" content="website">
+<meta property="og:title" content="L1zii">
+<meta property="og:description" content="学生 · 业余开发者。">
+<meta property="og:image" content="img/art/choco-hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="img/remilia.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="img/remilia.svg">
+
+<link rel="preload" href="fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="img/art/1080-poster.jpg" as="image">
+<link rel="preload" href="img/art/choco-hero.jpg" as="image">
+<link rel="stylesheet" href="css/style.css?v=21">
+
+<!-- 打「JS 在场」标记：滚动揭示的初始隐藏态只在 .js 下生效，
+     JS 被拦/报错时整页仍是完整可读的默认态 -->
+<script>document.documentElement.classList.add('js', 'is-intro', 'is-intro-head');</script>
+</head>
+<body>
+
+<a class="skip" href="#main">跳到主要内容</a>
+
+<!-- ============================================================
+     SVG 图标库
+     ============================================================ -->
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-arrow" viewBox="0 0 16 16">
+    <path d="M1 8h13M9.2 3.2 14 8l-4.8 4.8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="i-burst" viewBox="0 0 24 24">
+    <path d="M12 0l2.2 7.1L21 3.5l-3.6 6.8L24 12l-6.6 1.7L21 20.5l-6.8-3.6L12 24l-2.2-7.1L3 20.5l3.6-6.8L0 12l6.6-1.7L3 3.5l6.8 3.6z" fill="currentColor"/>
+  </symbol>
+  <symbol id="i-github" viewBox="0 0 24 24">
+    <path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.8.1-.8.1-.8 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5z" fill="currentColor"/>
+  </symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.6">
+      <rect x="2.5" y="5" width="19" height="14" rx="1.5"/>
+      <path d="M3 6.5 12 13l9-6.5"/>
+    </g>
+  </symbol>
+  <symbol id="i-x" viewBox="0 0 24 24">
+    <path d="M3 3h4.3l5 6.6L18.2 3H21l-6.9 8 7.2 10h-4.3l-5.3-7.1L5.5 21H3l7.4-8.5z" fill="currentColor"/>
+  </symbol>
+</svg>
+
+<!-- ============================================================
+     页头
+     ============================================================ -->
+<header class="p-header" id="header">
+  <div class="p-header__inner">
+    <a class="p-header__logo" href="#top" aria-label="回到首页">
+      <span class="p-header__logo-main">L1ZII</span>
+      <span class="p-header__logo-sub">.TOP</span>
+    </a>
+
+    <nav class="p-header__nav" aria-label="主导航">
+      <a class="p-header__link" href="#top">首页</a>
+      <a class="p-header__link" href="#guanyu">关于</a> 
+      <a class="p-header__link" href="#kjrk">传送门</a>
+      <a class="p-header__link" href="#gallery">图集</a>
+      <a class="p-header__link" href="#projects">仓库</a>
+      <a class="p-header__link" href="#server">服务器</a>
+    </nav>
+
+    <div class="p-header__actions">
+
+      <button class="p-header__toggle" type="button" id="menuBtn" aria-expanded="false" aria-controls="site-menu">
+        <span class="p-header__toggle-label" id="menuLabel">MENU</span>
+        <span class="p-header__burger" aria-hidden="true"><span></span><span></span><span></span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- 全屏菜单（桌面端也能开，移动端为主） -->
+<div class="p-menu" id="site-menu" aria-hidden="true">
+  <nav class="p-menu__nav" aria-label="全站导航">
+    <a class="p-menu__link" href="#top"><span class="p-menu__num">01</span>首页<span class="p-menu__en">HOME PAGE</span></a>    
+    <a class="p-menu__link" href="#guanyu"><span class="p-menu__num">01</span>关于<span class="p-menu__en">ABOUT</span></a>
+    <a class="p-menu__link" href="#kjrk"><span class="p-menu__num">02</span>传送门<span class="p-menu__en">NOTES</span></a>
+    <a class="p-menu__link" href="#gallery"><span class="p-menu__num">03</span>图集<span class="p-menu__en">GALLERY</span></a>
+    <a class="p-menu__link" href="#projects"><span class="p-menu__num">04</span>仓库<span class="p-menu__en">PROJECTS</span></a>
+    <a class="p-menu__link" href="#server"><span class="p-menu__num">05</span>服务器<span class="p-menu__en">SERVER</span></a>
+  </nav>
+  <div class="p-menu__foot">
+    <a href="https://github.com/kelvinfs0" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://x.com/vexrecall" target="_blank" rel="noopener">X / Twitter</a>
+    <a href="mailto:johnsonfs0@outlook.com">Email</a>
+  </div>
+</div>
+
+<!-- ============================================================
+     开场影像 / 主视觉
+     ============================================================ -->
+<main id="main">
+
+<!-- ============================================================
+     开场影像（首屏）：整屏画面，屏内只留白色 L1ZII
+     ============================================================ -->
+<section class="intro" id="top">
+  <div class="intro__media" aria-hidden="true">
+    <video class="intro__video" autoplay muted loop playsinline preload="auto"
+           poster="img/art/1080-poster.jpg" disablepictureinpicture>
+      <source src="img/art/1080-intro.mp4?v=2" type="video/mp4">
+    </video>
+  </div>
+
+  <p class="intro__logo">L1ZII.TOP</p>
+</section>
+
+<section class="hero" id="guanyu">
+  <div class="hero__grid">
+
+    <div class="hero__body">
+      <p class="hero__eyebrow">PERSONAL SITE / SINCE 2024</p>
+
+      <h1 class="hero__title">
+        欢迎来到<br>
+        <span class="hero__title-outline">我的个人站</span>
+      </h1>
+
+      <p class="hero__desc">
+        我是L1zii，一名学生。喜欢摄影以及捣鼓一些怪东西。
+      </p>
+
+      <div class="hero__cta">
+        <a class="c-btn c-btn--ghost" href="https://github.com/kelvinfs0" target="_blank" rel="noopener">
+          <span>GitHub</span>
+          <svg class="c-btn__arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+        <a class="c-btn c-btn--ghost" href="https://500px.com.cn/p/L1zii" target="_blank" rel="noopener">
+          <span>500px</span>
+          <svg class="c-btn__arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
+      </div>
+
+      <dl class="hero__meta">
+        <div><dt>服务器</dt><dd>1 <span>SELF HOSTED</span></dd></div>
+        <div><dt>点赞数</dt><dd>343 <span>LIKES</span></dd></div>
+        <div><dt>在线</dt><dd><span id="heroVisits">—</span> <span>VISITS</span></dd></div>
+      </dl>
+    </div>
+
+    <div class="hero__visual">
+      <img class="hero__img" src="img/art/miku-hero.jpg" alt="初音未来" width="1086" height="1448" fetchpriority="high">
+      <span class="hero__scrim" aria-hidden="true"></span>
+    </div>
+
+    <nav class="hero__index" aria-label="页面索引">
+      <a href="#top"><span class="hero__index-num">00</span><span class="hero__index-name">首页</span></a>
+      <a href="#guanyu"><span class="hero__index-num">01</span><span class="hero__index-name">关于</span></a>
+      <a href="#kjrk"><span class="hero__index-num">02</span><span class="hero__index-name">传送门</span></a>
+      <a href="#gallery"><span class="hero__index-num">03</span><span class="hero__index-name">图集</span></a>
+      <a href="#projects"><span class="hero__index-num">04</span><span class="hero__index-name">仓库</span></a>
+      <a href="#server"><span class="hero__index-num">05</span><span class="hero__index-name">服务器</span></a>
+    </nav>
+
+    <span class="hero__edge" aria-hidden="true">L1ZII — PERSONAL SITE</span>
+  </div>
+</section>
+
+<!-- 跑马灯 -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track">
+    <div class="ticker__run">
+      <span>L1ZII</span><i>✦</i><span>STUDENT DEVELOPER</span><i>✦</i><span>L1ZII.TOP</span><i>✦</i><span>PHOTOGRAPHY</span><i>✦</i><span>GAMES</span><i>✦</i><span>MINECRAFT</span><i>✦</i>
+    </div>
+    <div class="ticker__run">
+      <span>L1ZII</span><i>✦</i><span>STUDENT DEVELOPER</span><i>✦</i><span>L1ZII.TOP</span><i>✦</i><span>PHOTOGRAPHY</span><i>✦</i><span>GAMES</span><i>✦</i><span>MINECRAFT</span><i>✦</i>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- ============================================================
+     快捷入口
+     ============================================================ -->
+<section class="sec" id="kjrk">
+  <div class="l-inner">
+    <div class="c-sec-head" data-inview>
+      <span class="c-sec-head__bar"></span>
+      <svg class="c-sec-head__icon" aria-hidden="true"><use href="#i-burst"/></svg>
+      <span class="c-sec-head__ttl">传送门</span>
+      <span class="c-sec-head__en">SHORTCUTS</span>
+    </div>
+
+    <h2 class="sec__title" data-inview>
+      常用的，<br>
+      <span class="sec__title-outline">都在这</span>
+    </h2>
+
+    <div class="works" id="repoGrid" aria-live="polite">
+      <a class="work" href="http://43.136.167.43:5441/" target="_blank" rel="noopener">
+        <span class="work__top"><span class="work__lang">FnOS Nas</span></span>
+        <h3 class="work__name">文件服务器</h3>
+        <p class="work__desc">NAS系统设置与状态管控，文件、用户、服务全管理</p>
+        <span class="work__foot"><svg class="work__arrow" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+      </a>
+      <a class="work" href="https://dl.l1zii.top/v" target="_blank" rel="noopener">
+        <span class="work__top"><span class="work__lang">Movie</span></span>
+        <h3 class="work__name">在线媒体库v6</h3>
+        <p class="work__desc">影片自动刮削，精选电影剧集即点即播，随时享受极致影视体验</p>
+        <span class="work__foot"><svg class="work__arrow" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+      </a>
+      <a class="work" href="https://github.com" target="_blank" rel="noopener">
+        <span class="work__top"><span class="work__lang">Monitor</span></span>
+        <h3 class="work__name">系统实时监控</h3>
+        <p class="work__desc">多维度采集系统运行数据，可视化呈现服务器资源占用与性能趋势</p>
+        <span class="work__foot"><svg class="work__arrow" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+      </a>
+      <a class="work work--site" href="https://docker-baota.l1ziii.5ddd.com/btpanel" target="_blank" rel="noopener">
+        <span class="work__top"><span class="work__lang">baota</span></span>
+        <h3 class="work__name">宝塔面板</h3>
+        <p class="work__desc">可视化运维服务器，覆盖环境部署、站点管理、监控告警与安全防护</p>
+        <span class="work__foot"><svg class="work__arrow" aria-hidden="true"><use href="#i-arrow"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>  
+
+
+
+<!-- ============================================================
+     图集
+     ============================================================ -->
+<section class="sec sec--gallery" id="gallery">
+  <div class="l-inner">
+    <div class="c-sec-head" data-inview>
+      <span class="c-sec-head__bar"></span>
+      <svg class="c-sec-head__icon" aria-hidden="true"><use href="#i-burst"/></svg>
+      <span class="c-sec-head__ttl">图集</span>
+      <span class="c-sec-head__en">GALLERY / COLLECTION</span>
+    </div>
+
+    <h2 class="sec__title" data-inview>
+      拍到的，<br>
+      <span class="sec__title-outline">好看的东西</span>
+    </h2>
+
+    <div class="gallery" id="galleryGrid">
+      <button class="shot shot--tall" type="button" data-full="img/art/choco-full.jpg" data-cap="旋" data-inview>
+        <img src="img/art/choco-full.jpg" alt="黑白旋转楼梯" loading="lazy" width="1086" height="1448">
+        <span class="shot__cap"><i>01</i>旋</span>
+      </button>
+      <button class="shot" type="button" data-full="img/art/sakura.jpg" data-cap="泊" data-inview>
+        <img src="img/art/sakura.jpg" alt="湖与舟" loading="lazy" width="1400" height="812">
+        <span class="shot__cap"><i>02</i>泊</span>
+      </button>
+      <button class="shot" type="button" data-full="img/art/miku-garden.jpg" data-cap="望山" data-inview>
+        <img src="img/art/miku-garden.jpg" alt="雪山背影" loading="lazy" width="1400" height="700">
+        <span class="shot__cap"><i>03</i>望山</span>
+      </button>
+      <button class="shot shot--tall" type="button" data-full="img/art/blade.jpg" data-cap="奔浪" data-inview>
+        <img src="img/art/blade.jpg" alt="礁石激流" loading="lazy" width="1100" height="1541">
+        <span class="shot__cap"><i>04</i>奔浪</span>
+      </button>
+      <button class="shot shot--tall" type="button" data-full="img/art/miku-summer.jpg" data-cap="檐角晴空" data-inview>
+        <img src="img/art/miku-summer.jpg" alt="建筑仰拍" loading="lazy" width="710" height="1541">
+        <span class="shot__cap"><i>05</i>檐角晴空</span>
+      </button>
+      <button class="shot" type="button" data-full="img/art/miku-hai.jpg" data-cap="绿樱山" data-inview>
+        <img src="img/art/miku-hai.jpg" alt="暖调几何建筑" loading="lazy" width="771" height="1541">
+        <span class="shot__cap"><i>06</i>绿樱山</span>
+      </button>
+      <button class="shot" type="button" data-full="img/art/miku-teal.jpg" data-cap="追风" data-inview>
+        <img src="img/art/miku-teal.jpg" alt="孩童剪影" loading="lazy" width="1024" height="1498">
+        <span class="shot__cap"><i>07</i>追风</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ============================================================
+     仓库
+     ============================================================ -->
+<section class="sec" id="projects">
+  <div class="l-inner">
+    <div class="c-sec-head" data-inview>
+      <span class="c-sec-head__bar"></span>
+      <svg class="c-sec-head__icon" aria-hidden="true"><use href="#i-burst"/></svg>
+      <span class="c-sec-head__ttl">仓库</span>
+      <span class="c-sec-head__en">Projects &amp; Work</span>
+    </div>
+
+    <div class="notes">
+      <div class="notes__lead" data-inview>
+        <h2 class="notes__big">一<br>些<br>项<br>目</h2>
+<!--        <p class="notes__hint">不定期更新，想到什么写什么。</p> -->
+      </div>
+
+      <ul class="notes__list">
+        <li class="note" data-inview>
+          <a class="note__link" href="https://github.com/kelvinfs0/GZAST_NetworkLoginScript" target="_blank" rel="noopener">
+            <span class="note__date">2025.10.22</span>
+            <span class="note__cat note__cat--site">网络</span>
+            <span class="note__ttl">Network Login Script</span>
+            <span class="note__desc">一个定时自动化网络登录脚本，可部署在openwrt上，用于自动填充和提交登录表单</span>
+            <svg class="note__arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+          </a>
+        </li>
+        <li class="note" data-inview style="--delay:.06s">
+          <a class="note__link" href="https://github.com/kelvinfs0/Network_Course_Library" target="_blank" rel="noopener">
+            <span class="note__date">2026.10.13</span>
+            <span class="note__cat note__cat--lab">学习</span>
+            <span class="note__ttl">Network_Course_Library</span>
+            <span class="note__desc">一个存放网络工程课程资料和学习笔记的Markdown知识库</span>
+            <svg class="note__arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+          </a>
+        </li>
+        <li class="note" data-inview style="--delay:.12s">
+          <a class="note__link" href="https://github.com/kelvinfs0/Ast.Course" target="_blank" rel="noopener">
+            <span class="note__date">2025.11.12</span>
+            <span class="note__cat note__cat--code">课程</span>
+            <span class="note__ttl">Ast.Course</span>
+            <span class="note__desc">程序开发课程实战</span>
+            <svg class="note__arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+          </a>
+        </li>
+        <li class="note" data-inview style="--delay:.18s">
+          <a class="note__link" href="https://github.com/kelvinfs0/Network_tools" target="_blank" rel="noopener">
+            <span class="note__date">2025.10.07</span>
+            <span class="note__cat note__cat--code">网络</span>
+            <span class="note__ttl">Network_tools</span>
+            <span class="note__desc">一个网络运维常用工具大集合</span>
+            <svg class="note__arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <p class="works__more" data-inview>
+      <a class="c-btn c-btn--ghost" href="https://github.com/kelvinfs0?tab=repositories" target="_blank" rel="noopener">
+        <span>全部仓库</span><svg class="c-btn__arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+      </a>
+    </p>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     服务器
+     ============================================================ -->
+<section class="sec sec--server" id="server">
+  <div class="l-inner">
+    <div class="c-sec-head" data-inview>
+      <span class="c-sec-head__bar"></span>
+      <svg class="c-sec-head__icon" aria-hidden="true"><use href="#i-burst"/></svg>
+      <span class="c-sec-head__ttl">服务器</span>
+      <span class="c-sec-head__en">SERVER</span>
+    </div>
+
+    <div class="server" data-inview>
+      <!-- 整机性能面板：数值是排版用的示例，接上接口后按 ID 覆盖即可 -->
+      <div class="server__card sys">
+        <div class="server__top">
+          <span class="server__state" data-on="1">
+            <i class="server__dot" aria-hidden="true"></i>
+            <span id="sysState">运行中</span>
+          </span>
+          <span class="server__host num" id="sysHost">dl.l1zii.top</span>
+        </div>
+
+        <h2 class="server__title">
+          <span class="server__title-outline">SERVER</span><br>
+          MONITOR
+        </h2>
+
+        <div class="sys__hero">
+          <span class="sys__hero-num num"><span id="sysCpu">42</span><span class="sys__hero-unit">%</span></span>
+          <span class="sys__hero-meta">
+            <span class="sys__hero-ttl">CPU 占用</span>
+            <span class="sys__hero-sub num" id="sysCpuMeta">8 核 / 3.6 GHz</span>
+          </span>
+        </div>
+
+        <div class="sys__bar">
+          <div class="sys__bar-head">
+            <span>内存</span>
+            <span class="num"><span id="sysMemUsed">9.2</span> / <span id="sysMemTotal">16</span> GB</span>
+          </div>
+          <div class="sys__bar-track"><i id="sysMemBar" style="width:58%"></i></div>
+        </div>
+
+        <dl class="sys__grid">
+          <div><dt>温度</dt><dd class="num"><span id="sysTemp">48</span><span class="u">°C</span></dd></div>
+          <div><dt>负载</dt><dd class="num" id="sysLoad">1.42</dd></div>
+          <div><dt>运行</dt><dd class="num"><span id="sysUptime">12</span><span class="u">天</span></dd></div>
+        </dl>
+
+        <div class="sys__io">
+          <div class="sys__io-row">
+            <span class="sys__io-name">网络</span>
+            <span class="sys__io-val num"><i>↓</i><span id="sysNetDown">2.4</span><span class="u">MB/s</span></span>
+            <span class="sys__io-val num"><i>↑</i><span id="sysNetUp">6.7</span><span class="u">MB/s</span></span>
+          </div>
+          <div class="sys__io-row">
+            <span class="sys__io-name">磁盘</span>
+            <span class="sys__io-val num"><i>R</i><span id="sysDiskRead">48</span><span class="u">MB/s</span></span>
+            <span class="sys__io-val num"><i>W</i><span id="sysDiskWrite">366</span><span class="u">KB/s</span></span>
+          </div>
+        </div>
+
+        <div class="server__foot">
+          <span id="sysOs">Linux 12</span>
+          <span class="num" id="sysTick">1 天前更新</span>
+        </div>
+      </div>
+
+      <div class="svc">
+        <div class="svc__head">
+          <h3 class="svc__ttl">服务状态 <span>UPTIME / MONITORS</span></h3>
+          <a class="svc__link" href="https://stats.uptimerobot.com" target="_blank" rel="noopener">完整状态页 ↗</a>
+        </div>
+
+        <ul class="svc__list" id="svcList">
+          <li class="svc__item">
+            <i class="svc__dot" aria-hidden="true"></i>
+            <span class="svc__name">正在读取…</span>
+            <span class="svc__meta num">—</span>
+          </li>
+        </ul>
+
+        <p class="svc__foot">
+          每 60 秒自动刷新 · 数据源 UptimeRobot · 最后更新 <span class="num" id="svcTick">--:--:--</span>
+        </p>
+      </div>
+    </div>
+  </div> 
+</section>
+</main>
+
+<!-- ============================================================
+     页脚
+     ============================================================ -->
+<footer class="p-footer">
+  <div class="l-inner">
+    <div class="p-footer__nav">
+      <div class="p-footer__col">
+        <p class="p-footer__logo">L1ZII</p>
+      </div>
+      <div class="p-footer__col">
+        <p class="p-footer__col-ttl">SITE</p>
+        <a href="#main">首页</a>
+        <a href="#kjrk">传送门</a>
+        <a href="#gallery">图集</a>
+        <a href="#projects">仓库</a>
+        <a href="#server">服务器</a>
+      </div>
+      <div class="p-footer__col">
+        <p class="p-footer__col-ttl">FIND ME</p>
+        <a href="https://github.com/kelvinfs0" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://500px.com.cn/p/L1zii" target="_blank" rel="noopener">500px</a>
+        <a href="https://x.com/vexrecall" target="_blank" rel="noopener">X / Twitter</a>
+        <a href="mailto:Johnsonfs0@outlook.com">Email</a>
+      </div>
+      <div class="p-footer__col">
+        <p class="p-footer__col-ttl">STACK</p>
+        <span>自建 · 无 CDN</span>
+        <span>字体：JetBrains Mono</span>
+      </div>
+      <div class="p-footer__col">
+        <p class="p-footer__col-ttl">STATUS</p>
+        <span id="footStatus">—</span>
+        <span class="num"><span id="footDays">746</span> DAYS</span>
+      </div>
+    </div>
+
+    <div class="p-footer__bottom">
+      <span>© 2026 L1zii</span>
+      <span>本站不收集任何个人信息 · 视频版权已取得授权</span>
+    </div>
+  </div>
+</footer>
+
+<!-- 图集灯箱 -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="图片查看" aria-hidden="true">
+  <button class="lightbox__close" type="button" id="lbClose" aria-label="关闭">✕</button>
+  <button class="lightbox__nav lightbox__nav--prev" type="button" id="lbPrev" aria-label="上一张">←</button>
+  <figure class="lightbox__fig">
+    <img class="lightbox__img" id="lbImg" alt="">
+    <figcaption class="lightbox__cap" id="lbCap"></figcaption>
+  </figure>
+  <button class="lightbox__nav lightbox__nav--next" type="button" id="lbNext" aria-label="下一张">→</button>
+</div>
+
+<script src="js/main.js?v=11" defer></script>
+</body>
+</html>
